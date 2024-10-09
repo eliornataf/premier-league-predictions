@@ -1,0 +1,44 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block page_title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'app.css' %}">
+    {% block css_files %}{% endblock %}
+    <link rel="icon" type="image/png" href="{% static '/images/premier_league_predictions_icon.png' %}">
+</head>
+<body>
+    <header id="main-navigation">
+        <h1>
+            <a href="{% url 'starting-page' %}">
+                <img src="/static/images/premier_league_predictions_logo.png" alt="Premier League logo">
+            </a>
+        </h1>
+        <nav>
+            <a href="{% url 'fixtures-page' %}">Fixtures</a>
+        </nav>
+        <nav>
+            <a href="{% url 'results-page' %}">Results</a>
+        </nav>
+        <nav>
+            <a href="{% url 'table-page' %}">Table</a>
+        </nav>
+        <nav>
+            <a href="{% url 'clubs-page' %}">Clubs</a>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1 class="page-header__title">
+            {% block page_header_title %}{% endblock %}
+        </h1>
+    </div>
+
+    {% block page_body %}{% endblock %}
+</body>
+</html>

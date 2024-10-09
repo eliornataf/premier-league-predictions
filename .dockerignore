@@ -1,0 +1,12 @@
+.env
+db.sqlite3
+.idea
+kubernetes
+celerybeat-schedule
+dump.rdb
+__pycache__/
+*.iml
+catboost_info
+.DS_Store
+._*
+staticfiles

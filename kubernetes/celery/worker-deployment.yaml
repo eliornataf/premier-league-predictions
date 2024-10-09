@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: celery-worker
+  template:
+    metadata:
+      labels:
+        app: celery-worker
+    spec:
+      containers:
+        - name: celery-worker
+          image: eliorn23/premier-league-predictions:latest
+          command: ['celery', '-A', 'premier_league_predictions', 'worker', '-l', 'INFO']
+          env:
+            - name: DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: debug
+
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: django-credentials
+                  key: key
+
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-cm
+                  key: name
+
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: user
+
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: password
+
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: db_host
+
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: db_port
+
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: redis_host
+
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: redis_port
+      imagePullSecrets:
+        - name: dockerhub-credentials

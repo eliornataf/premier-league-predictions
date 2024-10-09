@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'website/stadium_details.css' %}">
+{% endblock %}
+
+{% block page_title %}
+{{ stadium.name }} | Premier League Predictions
+{% endblock %}
+
+{% block page_header_title %}
+{{ stadium.name }} Stadium Details
+{% endblock %}
+
+{% block page_body %}
+<div class="stadium-details">
+  <div class="interior-image">
+    <img src="{{ stadium.interior_image.url }}" alt="Interior Image" width="520" height="320">
+  </div>
+  <div class="stadium-info">
+    <p><strong>City:</strong>{{ football_club.location.city }}</p>
+    <p><strong>Country:</strong>{{ football_club.location.country }}</p>
+    <p><strong>Club:</strong>{{ football_club.name }}</p>
+    <p><strong>Opened:</strong>{{ stadium.opened }}</p>
+    <p><strong>Capacity:</strong>{{ stadium.capacity }}</p>
+  </div>
+  <div class="exterior-image">
+    <img src="{{ stadium.exterior_image.url }}" alt="Exterior Image" width="520" height="320">
+  </div>
+</div>
+{% endblock %}

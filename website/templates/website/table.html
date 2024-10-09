@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'website/table.css' %}">
+{% endblock %}
+
+{% block page_title %}
+    Table | Premier League Predictions
+{% endblock %}
+
+{% block page_header_title %}
+    Table
+{% endblock %}
+
+{% block page_body %}
+<table>
+    <thead>
+    <tr>
+        <th>Position</th>
+        <th>Club</th>
+        <th></th>
+        <th>Played</th>
+        <th>Won</th>
+        <th>Drawn</th>
+        <th>Lost</th>
+        <th>Goals For</th>
+        <th>Goals Against</th>
+        <th>Goals Difference</th>
+        <th>Points</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in table_rows %}
+    <tr>
+        <td>{{ row.position }}</td>
+        <td>
+            <a href="{% url 'club-detail-page' row.club.slug %}" class="club-badge">
+                <img src="{{ row.club.badge.url }}" alt="{{ row.club.name }} Badge">
+            </a>
+        </td>
+        <td class="club-name">
+            <a href="{% url 'club-detail-page' row.club.slug %}">
+                {{ row.club.name }}
+            </a>
+        </td>
+        <td>{{ row.played }}</td>
+        <td>{{ row.won }}</td>
+        <td>{{ row.drawn }}</td>
+        <td>{{ row.lost }}</td>
+        <td>{{ row.goals_for }}</td>
+        <td>{{ row.goals_against }}</td>
+        <td>{{ row.goals_difference }}</td>
+        <td>{{ row.points }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

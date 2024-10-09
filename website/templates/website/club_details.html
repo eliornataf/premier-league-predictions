@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'website/club_details.css' %}">
+{% endblock %}
+
+{% block page_title %}
+{{ football_club.name }} | Premier League Predictions
+{% endblock %}
+
+{% block page_header_title %}
+{{ football_club.name }} Club Profile
+{% endblock %}
+
+{% block page_body %}
+<div class="club-details">
+    <img src="{{ football_club.badge.url }}" alt="{{ football_club.name }} Badge">
+    <div class="club-details__info">
+        <h2><strong>Founded:</strong>{{ football_club.year_founded }}</h2>
+        <h2><strong>Website:</strong><a href="{{ football_club.website }}" target="_blank">{{ football_club.website }}</a></h2>
+        <h2><strong>Premier League Trophies:</strong>{{ football_club.premier_league_trophies }}</h2>
+        <h2><strong>Location:</strong>{{ football_club.location }}</h2>
+        <h2><strong>Stadium:</strong>
+            <a href="{% url 'stadium-detail-page' football_club.stadium.slug %}" class="stadium-link">{{ football_club.stadium.name }}</a>
+        </h2>
+    </div>
+</div>
+{% endblock %}

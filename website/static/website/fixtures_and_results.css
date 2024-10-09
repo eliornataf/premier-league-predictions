@@ -1,0 +1,56 @@
+/* static/website/fixtures_and_results.css */
+
+table {
+    padding-top: 50px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.date-header {
+    text-align: center;
+    font-size: 30px;
+    padding-top: 25px;
+    padding-bottom: 20px;
+}
+
+tr:hover {
+    background-color: #e0e0e0;
+}
+
+td {
+    padding: 10px;
+    font-size: 20px;
+}
+
+.home-team {
+    text-align: right;
+    display: block;
+}
+
+.club-name, .score, .stadium-link {
+    text-decoration: none;
+    color: black;
+}
+
+a.score p {
+    margin: 0;
+    padding: 0;
+}
+
+.club-badge img {
+    display: block;
+    max-width: 40px;
+    max-height: 40px;
+    margin: 0 auto;
+}
+
+.club-time {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.stadium-icon {
+    max-width: 40px;
+    max-height: 40px;
+    float: right;
+}

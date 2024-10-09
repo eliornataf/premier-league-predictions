@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
+
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Handlee', cursive;
+}
+
+html {
+    font-size: 62.5%;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    display: block;
+    margin: 8px;
+    min-width: 320px;
+    height: 100%;
+    background: #f9f9f9;
+    font-weight: 400;
+    color: #333;
+    -webkit-text-size-adjust: 100%;
+    font-size: 1.4rem;
+}
+
+::selection {
+    background: #ff2882;
+    color: #fff;
+}
+
+#main-navigation {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #37003c;
+    line-height: 6rem;
+    color: #fff;
+    transition: box-shadow 0.2s;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    font-size: 30px;
+}
+
+#main-navigation h1,
+#main-navigation nav {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#main-navigation nav a {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    padding: 0 30px 25px;
+    margin-right: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#main-navigation img {
+    height: 100px;
+    vertical-align: middle;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+#main-navigation nav:not(:first-child) {
+    margin-top: 30px;
+}
+
+.page-header {
+    position: relative;
+    background-image: url('images/page_header_background.jpg');
+    background-size: cover;
+    padding: 4px 0;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.page-header__title {
+    position: relative;
+    z-index: 10;
+    font-size: 40px;
+    line-height: 4.6rem;
+    color: #fff;
+}

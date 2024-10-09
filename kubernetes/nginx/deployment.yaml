@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d
+            - name: nginx-tls
+              mountPath: /etc/nginx/ssl
+              readOnly: true
+            - name: django-staticfiles
+              mountPath: "/data/staticfiles"
+            - name: django-media
+              mountPath: "/data/media"
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-cm
+        - name: nginx-tls
+          secret:
+            secretName: nginx-tls
+        - name: django-staticfiles
+          persistentVolumeClaim:
+            claimName: django-staticfiles-pvc
+        - name: django-media
+          persistentVolumeClaim:
+            claimName: django-media-pvc

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'website/clubs.css' %}">
+{% endblock %}
+
+{% block page_title %}
+    Clubs | Premier League Predictions
+{% endblock %}
+
+{% block page_header_title %}
+    Clubs
+{% endblock %}
+
+{% block page_body %}
+    <div class="club-grid">
+        {% for club in football_clubs %}
+            <a href="{% url 'club-detail-page' club.slug %}" class="club">
+                <img src="{{ club.badge.url }}" alt="{{ club.name }} Badge">
+                <p class="club-name">{{ club.name }}</p>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

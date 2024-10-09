@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'website/index.css' %}">
+{% endblock %}
+
+{% block page_title %}
+    Premier League Predictions
+{% endblock %}
+
+    {% block page_header_title %}
+Overview
+{% endblock %}
+
+{% block page_body %}
+    <header id="page-header">
+        <nav>
+            <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#prediction-process">Prediction Process</a></li>
+                <li><a href="#website-pages">The Product: Website Pages</a></li>
+                <li><a href="#meet-the-team">Meet the Team</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="about">
+            <h1>About Us</h1>
+            <p>
+                Welcome to Premier League Predictions, a go-to resource for forecasts of the 2024/2025 Premier League
+                matches. Our platform aims to provide you with detailed insights and predictions for each matchweek.
+                At Premier League Predictions, we strive to be a reliable source for matchweek forecasts by utilizing a
+                methodology that combines data analysis, machine learning, and expert insights. Developed using Python,
+                our model currently achieves an accuracy of 66% across three possible outcomes: Home Team Wins, Draw,
+                and Away Team Wins, indicating that each outcome has an equal chance of 33%. We invite you to explore
+                our website and share in the excitement of the Premier League season.
+            </p>
+        </section>
+
+        <section id="prediction-process">
+            <h1>Prediction Process</h1>
+            <p>
+                Our predictions are generated through a meticulous process that leverages cutting-edge technology and
+                data analysis techniques, including libraries such as NumPy, pandas, scikit-learn, and more. This
+                process is repeated after each matchweek ends to ensure the most up-to-date and accurate forecasts.
+                Here’s how it works:
+            </p>
+
+            <h2>1. Data Collection</h2>
+            <p>
+                We have meticulously gathered data from the inception of the Premier League, starting from the
+                inaugural 1992/1993 season up to the current 2024/2025 season. Our database serves as a comprehensive
+                repository of match details, encompassing a wide range of information that captures the essence of each
+                game between two clubs.
+            </p>
+
+            <h2>2. Data Validation</h2>
+            <p>
+                Before any analysis, we meticulously validate the collected data to ensure its consistency,
+                prioritizing the accuracy of the information. This step involves identifying and rectifying any
+                discrepancies in the data.
+            </p>
+
+            <h2>3. Feature Engineering</h2>
+            <p>
+                Our feature engineering process involves creating features that calculate various statistics for each
+                row of data, with each row corresponding to a match, separately for the home and away teams. This
+                process is comprehensive and includes the following features:
+            </p>
+
+            <h3>Season and Matchweek Features</h3>
+            <p>
+                We calculate general features related to the season and matchweek, including factors like weather
+                conditions, to account for the evolving dynamics of the Premier League. This ensures our predictions
+                adapt to changing circumstances.
+            </p>
+
+            <h3>Last X Games Features</h3>
+            <p>
+                We generate features that capture the performance of each team in their most recent 'X' games,
+                including points earned, goals scored, shots taken, corners awarded, fouls committed, and yellow or
+                red cards received. Additionally, we incorporate head-to-head records between the home and away teams
+                to provide a comprehensive analysis. Leveraging this historical data enhances the accuracy of our
+                predictions for future outcomes in the dynamic world of football.
+            </p>
+
+            <h3>Season Points</h3>
+            <p>
+                For each team in each season, we meticulously track and maintain the cumulative points they have earned
+                up to the current game. This invaluable data not only provides insights into their overall performance
+                throughout the season but also helps determine their position on the league table.
+            </p>
+
+            <h3>Time Since Previous Match</h3>
+            <p>
+                In our analysis, we calculate the time elapsed since each team's previous match for each season.
+                Recognizing that player fatigue and performance can be influenced by this factor, we incorporate this
+                information to enhance the accuracy of our predictions.
+            </p>
+
+            <h3>Cumulative Sum</h3>
+            <p>
+                We meticulously maintain cumulative sums of various data, distinguishing between the performance of
+                home and away teams. Specifically, we consider only the games in which the home team played at home and
+                the games where the away team played away. These statistics encompass points, goals, shots, corners,
+                fouls, and yellow or red cards, providing a tailored analysis of each team's performance throughout the
+                season.
+            </p>
+
+            <h2>4. Feature Difference Calculation</h2>
+            <p>
+                The next step in our process involves calculating the differences between the features we’ve generated
+                for the home team and the away team for each row of data, representing each game. This crucial step
+                helps our classifiers understand the combination of numerical factors that contribute to making
+                predictions. These feature differences play a pivotal role in enhancing the predictive power of our
+                models, ensuring our forecasts are as precise as possible for the season.
+            </p>
+
+            <h2>5. Data Preprocessing and Target Encoding</h2>
+            <p>
+                To prepare the data for our classifiers, we perform essential preprocessing steps. One crucial aspect
+                is the conversion of the target feature, which is the full-time result, into a numerical format
+                suitable for machine learning. We convert 'H' for 'Home Team Wins' to '2', 'D' for 'Draw' to '1',
+                and 'A' for 'Away Team Wins' to '0'. Additionally, we split the data into two components: 'X' and 'y'.
+                These preprocessed datasets are essential for the subsequent step of training our classifiers.
+            </p>
+
+            <h2>6. Training, Tuning, Model Evaluation, and Model Selection</h2>
+            <p>
+                In this step, we utilize three powerful classifiers for our predictions: the XGBClassifier,
+                CatBoostClassifier, and LGBMClassifier. These classifiers are trained on our preprocessed data, which
+                includes multi-class target features and may contain missing values (NaNs). We begin by splitting the
+                data into training and testing sets. Once the classifiers are trained using the training data, we
+                proceed to tune them, also using the training data, with hyperparameters specific to each classifier.
+                The goal is to optimize their performance and prediction accuracy. Our meticulous tuning process
+                involves experimenting with different hyperparameter configurations.
+
+                Following training and tuning, we evaluate the performance of each trained and tuned model using the
+                test data. Given the unequal distribution of data and the multi-class nature of the target problem, we
+                utilize the balanced accuracy score metric to ensure a fair evaluation. After evaluating the three
+                models, we make an informed decision to select the best-performing model among them. The chosen model,
+                which exhibits the highest balanced accuracy score on the test data, will serve as the foundation for
+                our match outcome predictions. This model ensures accuracy and reliability throughout the Premier League
+                season, providing you with precise forecasts for every match.
+            </p>
+
+            <h2>7. Saving and Utilizing the Model</h2>
+            <p>
+                In this final step, we preserve the preprocessed data and the best-performing model for later use. When
+                we aim to predict the outcome of a game, we load both the stored model and the processed data. This
+                allows us to carry out several essential actions, similar to the steps mentioned earlier: Data
+                Validation, Feature Engineering, Feature Difference Calculation, and Data Preprocessing. Once the data
+                is prepared, we use the loaded model and the processed data from the current game to predict the
+                full-time score of the match.
+            </p>
+        </section>
+
+        <section id="website-pages">
+            <h1>The Product: Website Pages</h1>
+            <p>
+                Our Premier League Predictions website is designed to provide you with a comprehensive and user-friendly
+                experience, offering valuable information and insights through four key pages. Each page serves a unique
+                purpose, enhancing your understanding of the Premier League and helping you make informed decisions.
+                Here’s a breakdown of the website's pages and what they offer:
+            </p>
+
+            <h2>1. The Clubs Page</h2>
+            <p>
+                The Clubs Page is your gateway to in-depth information about each Premier League club. We’ve gathered
+                data using the Gemini Pro API, which utilizes Large Language Models (LLMs) to retrieve and process
+                information. With custom club detail prompts generated for each club, we’ve obtained relevant data for
+                every Premier League team. We prioritize data quality, and the information retrieved from the Gemini Pro
+                API undergoes a meticulous validation and correction process to ensure its accuracy. This refined data
+                is then seamlessly integrated into our database using custom-built Django models to maintain consistency
+                and reliability. We have chosen PostgreSQL as our database system due to its robustness, scalability,
+                and structured data capabilities, ensuring consistency and reliability in our data management.
+            </p>
+
+            <h2>2. The Fixture Page</h2>
+            <p>
+                The Fixtures Page provides the complete schedule for the current 2024/2025 Premier League season,
+                offering a convenient way to stay up-to-date with match dates and times. Additionally, this page, along
+                with the Results and Table Page, utilizes web scraping technology powered by the Selenium and
+                BeautifulSoup libraries. Selenium emulates human interaction with web pages, handling tasks like button
+                clicks, waiting periods, and interacting with various page elements. It then passes the page source to
+                BeautifulSoup, which is responsible for locating and extracting relevant data. This extracted data is
+                processed, converted, and parsed before being saved in our database using the Django match model.
+
+                Our predictions are also available one matchweek in advance. For instance, before the season begins,
+                you can view predictions for the first matchweek. These forecasts are generated using preprocessed data
+                and the best-performing model we created during the Prediction Process (for more details, refer to the
+                Prediction Process section). As the season progresses, we continue to provide forecasts for upcoming
+                matchweeks, helping you stay informed about upcoming matches and make well-informed decisions.
+
+                To further enhance performance and reduce response times, we've implemented Redis caching on this page.
+                This caching system stores frequently accessed data in memory, allowing quicker access to information
+                and improving your browsing experience.
+            </p>
+
+            <h2>3. The Results Page</h2>
+            <p>
+                The Results Page is your go-to source for real-time updates on Premier League match outcomes. Once the
+                season starts, this page will refresh every time a game is completed. Here's how the update process
+                works: We've implemented an automated system that ensures real-time updates. The system is deployed
+                using Kubernetes and Docker and operates through cron jobs managed by Celery. These cron jobs schedule
+                updates based on the expected finish time of games (multiple games can finish at the same time),
+                accounting for potential extra time when needed.
+
+                When the scheduled time arrives, the system utilizes Selenium and BeautifulSoup to scrape the necessary
+                data from the web. This includes match results, and for added detail, the system delves into game
+                statistics. All scraped data is then carefully formatted and parsed as needed. The scraped statistics
+                are added to the row in the dataframe, enriching our dataset with the most relevant information for
+                predictions. Additionally, when a matchweek concludes, the system initiates the Prediction Process to
+                create a new training model that incorporates the latest data for improved predictions.
+
+                Finally, the information is stored in our database using a Django model specifically designed for this
+                purpose. This automated process ensures you have access to the most up-to-date match outcomes and
+                statistics, keeping you informed about the latest Premier League results. To optimize performance and
+                reduce response times, we also utilize Redis caching on this page.
+            </p>
+
+            <h2>4. The Table Page</h2>
+            <p>
+                The Table Page provides the current Premier League standings. This page updates its information using
+                web scraping, once the scheduled task on the Results Page has been completed.
+            </p>
+        </section>
+
+        <section id="meet-the-team">
+            <h1>Meet the Team</h1>
+            <p>
+                I'm Elior Nataf, a Software Developer based in Israel, specializing in both backend development and
+                machine learning. I bring a unique skill set to the table. Currently, I’m part of the CitrusX team,
+                where we focus on AI and ML risk management. At CitrusX, we are dedicated to providing businesses with a
+                secure and transparent platform that demystifies AI models. Our goal is to help companies improve
+                accuracy, accountability, and bias detection, ensuring that AI technologies are used ethically and
+                effectively across various industries.
+            </p>
+        </section>
+    </div>
+{% endblock %}

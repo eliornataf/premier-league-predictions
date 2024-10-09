@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+        - name: django
+          image: eliorn23/premier-league-predictions:latest
+          command: ["/bin/sh", "-c"]
+          args:
+            - >
+              python manage.py migrate &&
+              python manage.py collectstatic --no-input &&
+              gunicorn premier_league_predictions.wsgi:application --bind 0.0.0.0:8000
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: debug
+
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: django-credentials
+                  key: key
+
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-cm
+                  key: name
+
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: user
+
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: password
+
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: db_host
+
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: db_port
+
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: redis_host
+
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: redis_port
+      imagePullSecrets:
+        - name: dockerhub-credentials

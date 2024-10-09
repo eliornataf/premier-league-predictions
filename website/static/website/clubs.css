@@ -1,0 +1,37 @@
+.club-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    padding: 5px 300px 0;
+    margin-top: 5px;
+}
+
+.club-grid a {
+    text-decoration: none;
+}
+
+.club {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+    padding: 20px 10px 0 10px;
+    transition: background-color 0.3s;
+    border-radius: 0.8rem;
+}
+
+.club:hover {
+    border: 2px solid black;
+}
+
+.club img {
+    max-width: 70px;
+    max-height: 70px;
+    margin-bottom: 4px;
+}
+
+.club-name {
+    color: black;
+    font-size: 19px;
+    -webkit-font-smoothing: antialiased;
+}

@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flower
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flower
+  template:
+    metadata:
+      labels:
+        app: flower
+    spec:
+      containers:
+        - name: flower
+          image: eliorn23/premier-league-predictions:latest
+          command: ['celery', '-A', 'premier_league_predictions' , 'flower']
+          ports:
+            - containerPort: 5555
+          env:
+            - name: DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: debug
+
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: django-credentials
+                  key: key
+
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-cm
+                  key: name
+
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: user
+
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: password
+
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: db_host
+
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: db_port
+
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: redis_host
+
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: django-cm
+                  key: redis_port
+          resources:
+            limits:
+              cpu: 100m
+      imagePullSecrets:
+        - name: dockerhub-credentials

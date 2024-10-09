@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'website/fixtures_and_results.css' %}">
+{% endblock %}
+
+{% block page_title %}
+    Fixtures | Premier League Predictions
+{% endblock %}
+
+{% block page_header_title %}
+    Fixtures
+{% endblock %}
+
+{% block page_body %}
+    <table>
+        <tbody>
+        {% for date, fixtures in grouped_fixtures.items %}
+            <tr>
+                <td colspan="8" class="date-header"><strong>{{ date|date:"M. d, Y" }}</strong></td>
+            </tr>
+            {% for fixture in fixtures %}
+                <tr>
+                    <td>
+                        <a href="{% url 'club-detail-page' fixture.home_team.slug %}" class="club-name home-team">
+                            {{ fixture.home_team.name }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'club-detail-page' fixture.home_team.slug %}" class="club-badge">
+                            <img src="{{ fixture.home_team.badge.url }}" alt="{{ fixture.home_team.name }} Badge">
+                        </a>
+                    </td>
+                    <td class="club-time">{{ fixture.time|time:"H:i" }}</td>
+                    <td>
+                        <a href="{% url 'club-detail-page' fixture.away_team.slug %}" class="club-badge">
+                            <img src="{{ fixture.away_team.badge.url }}" alt="{{ fixture.away_team.name }} Badge">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'club-detail-page' fixture.away_team.slug %}" class="club-name">
+                            {{ fixture.away_team.name }}
+                        </a>
+                    </td>
+                    <td>
+                        <img src="{% static '/website/images/stadium_icon.png' %}" alt="Stadium Icon" class="stadium-icon">
+                    </td>
+                    <td>
+                        <a href="{% url 'stadium-detail-page' fixture.home_team.stadium.slug %}" class="stadium-link">
+                            {{ fixture.home_team.stadium.name }}, {{ fixture.home_team.location }}
+                        </a>
+                    </td>
+                    <td>Prediction: {% if fixture.predicted_outcome %}{{ fixture.get_predicted_outcome_display }}{% else %}-{% endif %}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

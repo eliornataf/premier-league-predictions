@@ -1,0 +1,31 @@
+.club-details {
+    padding: 10px;
+    text-align: center;
+}
+
+.club-details img {
+    max-width: 150px;
+    max-height: 150px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.club-details__info {
+    margin-bottom: 10px;
+}
+
+.club-details__info strong {
+    font-size: 40px;
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.club-details__info h2 {
+    font-size: 30px;
+    font-weight: normal;
+}
+
+.club-details__info a {
+    color: #007bff;
+    text-decoration: none;
+}

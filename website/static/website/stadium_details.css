@@ -1,0 +1,27 @@
+/* Static/website/stadium_details.css */
+
+.stadium-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 50px 10px 20px;
+}
+
+.interior-image, .exterior-image {
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+.stadium-info strong {
+    margin-right: 5px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.stadium-info p {
+    font-size: 30px;
+    font-weight: normal;
+    margin-bottom: 10px;
+}

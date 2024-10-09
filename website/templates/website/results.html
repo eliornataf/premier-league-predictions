@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'website/fixtures_and_results.css' %}">
+{% endblock %}
+
+{% block page_title %}
+    Results | Premier League Predictions
+{% endblock %}
+
+{% block page_header_title %}
+    Results
+{% endblock %}
+
+{% block page_body %}
+<table>
+    <tbody>
+    {% for date, results in grouped_results.items %}
+    <tr>
+        <td colspan="8" class="date-header"><strong>{{ date|date:"M. d, Y" }}</strong></td>
+    </tr>
+    {% for result in results %}
+    <tr>
+        <td>
+            <a href="{% url 'club-detail-page' result.fixture.home_team.slug %}" class="club-name home-team">
+                {{ result.fixture.home_team.name }}
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'club-detail-page' result.fixture.home_team.slug %}" class="club-badge">
+                <img src="{{ result.fixture.home_team.badge.url }}" alt="{{ result.fixture.home_team.name }} Badge">
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'result-detail-page' result.slug %}" class="score">
+                <p>{{ result.home_team_score }} - {{ result.away_team_score }}</p>
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'club-detail-page' result.fixture.away_team.slug %}" class="club-badge">
+                <img src="{{ result.fixture.away_team.badge.url }}" alt="{{ result.fixture.away_team.name }} Badge">
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'club-detail-page' result.fixture.away_team.slug %}" class="club-name">
+                {{ result.fixture.away_team.name }}
+            </a>
+        </td>
+        <td>
+            <img src="{% static '/website/images/stadium_icon.png' %}" alt="Stadium Icon" class="stadium-icon">
+        </td>
+        <td>
+            <a href="{% url 'stadium-detail-page' result.fixture.home_team.stadium.slug %}" class="stadium-link">
+                {{ result.fixture.home_team.stadium.name }}, {{ result.fixture.home_team.location }}
+            </a>
+        </td>
+        <td>Prediction: {% if result.fixture.predicted_outcome %}{{ result.fixture.get_predicted_outcome_display }}{% else %}-{% endif %}</td>
+    </tr>
+    {% endfor %}
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

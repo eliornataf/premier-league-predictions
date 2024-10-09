@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'website/result_details.css' %}">
+{% endblock %}
+
+{% block page_title %}
+    {{ result.fixture.home_team.name }} VS {{ result.fixture.away_team.name }} | Premier League Predictions
+{% endblock %}
+
+{% block page_header_title %}
+    {{ result.fixture.home_team.name }} vs {{ result.fixture.away_team.name }} Result Details
+{% endblock %}
+
+{% block page_body %}
+<div class="result-container">
+    <div class="result-box">
+        <div class="result-details">
+            <div class="team-info">
+                <div class="team-score">
+                    <a href="{% url 'club-detail-page' result.fixture.home_team.slug %}" class="club-name">
+                        {{ result.fixture.home_team.name }}
+                    </a>
+                    {{ result.home_team_score }}
+                </div>
+                <div class="team-scorers"> {{ result.home_team_goal_scorers }} </div>
+            </div>
+            <div class="team-info">
+                <div class="team-score">
+                    <a href="{% url 'club-detail-page' result.fixture.away_team.slug %}" class="club-name">
+                        {{ result.fixture.away_team.name }}
+                    </a>
+                    {{ result.away_team_score }}
+                </div>
+                <div class="team-scorers"> {{ result.away_team_goal_scorers }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="match-stats">
+    <h2>Match Statistics</h2>
+    <div class="stats-row">
+        <div class="team-name">{{ result.fixture.home_team.name }}</div>
+        <div class="team-name">{{ result.fixture.away_team.name }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_possession }}</div>
+        <div class="stats-label">Possession %</div>
+        <div class="stats-label">{{ result.away_team_possession }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_shots }}</div>
+        <div class="stats-label">Total Shots</div>
+        <div class="stats-label">{{ result.away_team_shots }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_shots_on_target }}</div>
+        <div class="stats-label">On Target</div>
+        <div class="stats-label">{{ result.away_team_shots_on_target }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_shots_off_target }}</div>
+        <div class="stats-label">Off Target</div>
+        <div class="stats-label">{{ result.away_team_shots_off_target }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_shots_blocked }}</div>
+        <div class="stats-label">Blocked</div>
+        <div class="stats-label">{{ result.away_team_shots_blocked }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_passing }}</div>
+        <div class="stats-label">Passing %</div>
+        <div class="stats-label">{{ result.away_team_passing }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_clear_cut_chances }}</div>
+        <div class="stats-label">Clear-Cut Chances</div>
+        <div class="stats-label">{{ result.away_team_clear_cut_chances }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_corners }}</div>
+        <div class="stats-label">Corners</div>
+        <div class="stats-label">{{ result.away_team_corners }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_offsides }}</div>
+        <div class="stats-label">Offsides</div>
+        <div class="stats-label">{{ result.away_team_offsides }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_tackles }}</div>
+        <div class="stats-label">Tackles %</div>
+        <div class="stats-label">{{ result.away_team_tackles }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_aerial_duels }}</div>
+        <div class="stats-label">Aerial Duels %</div>
+        <div class="stats-label">{{ result.away_team_aerial_duels }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_fouls_committed }}</div>
+        <div class="stats-label">Fouls Committed</div>
+        <div class="stats-label">{{ result.away_team_fouls_committed }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_fouls_won }}</div>
+        <div class="stats-label">Fouls Won</div>
+        <div class="stats-label">{{ result.away_team_fouls_won }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_yellow_cards }}</div>
+        <div class="stats-label">Yellow Cards</div>
+        <div class="stats-label">{{ result.away_team_yellow_cards }}</div>
+    </div>
+    <div class="stats-row">
+        <div class="stats-label">{{ result.home_team_red_cards }}</div>
+        <div class="stats-label">Red Cards</div>
+        <div class="stats-label">{{ result.away_team_red_cards }}</div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+

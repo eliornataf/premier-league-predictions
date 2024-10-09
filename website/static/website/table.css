@@ -1,0 +1,38 @@
+table {
+    width: 70%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+tr:hover {
+    background-color: #e0e0e0;
+}
+
+td, th {
+    padding: 10px;
+    font-size: 1.5em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+td.club-name {
+    text-align: left;
+}
+
+.club-name a {
+    text-decoration: none;
+    color: black;
+}
+
+.club-badge {
+    text-align: right;
+}
+
+.club-badge img {
+    display: block;
+    max-width: 40px;
+    max-height: 40px;
+    margin: 0 auto;
+}
